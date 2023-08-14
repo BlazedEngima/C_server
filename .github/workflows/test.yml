@@ -1,0 +1,29 @@
+# This starter workflow is for a CMake project running on multiple platforms. There is a different starter workflow if you just want a single platform.
+# See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-single-platform.yml
+name: Build and Test 
+description: Test suite to build and test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    name: Run test suite
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      # Set fail-fast to false to ensURE THAT FEEDBACK IS DELIVERED FOR ALL MATRIX COMBINATIONS. cONSIDER CHANGING THIS TO TRUE WHEN YOUR WORKFLOW IS STABLE.
+      fail-fast: false
+
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        build_type: [Release]
+    
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Build docker image
+      run: docker build -t cpp_server < .devcontainer/Dockerfile  
