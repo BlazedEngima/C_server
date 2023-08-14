@@ -22,7 +22,11 @@ jobs:
         build_type: [Release]
     
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
 
     - name: Build docker image
-      run: docker build -t cpp_server < .devcontainers/Dockerfile  
+      run: |
+        echo ---Building docker image---
+        docker build . --file ./.devcontainers/Dockerfile --tag cpp_server:$(date +%s)
+        echo ---Finished building docker image---
