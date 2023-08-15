@@ -15,7 +15,7 @@ jobs:
       ports:
         - 8080
       volumes:
-        -.:/cpp_server
+        - .:/cpp_server
     
     steps:
     - name: Checkout
