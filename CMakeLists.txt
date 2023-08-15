@@ -3,8 +3,10 @@ project(cpp_server)
 set(LIBASYIK_ENABLE_SOCI OFF)  # if SOCI database support is desired
 set(CMAKE_CXX_STANDARD 17)    # set to 14 or 17 when available
 
-add_executable(${PROJECT_NAME} server.cpp) # add more source code here
-add_executable(client client.cpp)
+include_directories(${PROJECT_SOURCE_DIR}/lib/cpp-base64)
+
+add_executable(${PROJECT_NAME} server.cpp lib/cpp-base64/base64.cpp) # add more source code here
+add_executable(client client.cpp lib/cpp-base64/base64.cpp)
 
 #######
 #include other dependencies
@@ -57,3 +59,12 @@ target_link_libraries(client Threads::Threads)
 find_package(OpenSSL REQUIRED)
 target_link_libraries(${PROJECT_NAME} OpenSSL::SSL)
 target_link_libraries(client OpenSSL::SSL)
+
+add_custom_target(copy_resources ALL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${PROJECT_SOURCE_DIR}/resources
+        ${PROJECT_BINARY_DIR}/resources
+        COMMENT "Copying resources into build folder")
+
+add_dependencies(${PROJECT_NAME} copy_resources)
+add_dependencies(client copy_resources)
