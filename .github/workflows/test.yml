@@ -23,7 +23,6 @@ jobs:
 
     - name: Build cmake project
       run: |
-        cd /cpp_server
         git submodule init
         sh ./configure.sh
         sh ./build.sh
