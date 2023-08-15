@@ -9,8 +9,8 @@
 int main(int argc, char *argv[]) {
 
     if (argc != 4) {
-        std::cout << "Incorrect number of arguments!" << std::endl;
-        std::cout << "Arguments are <source_image_path> <desired_width> <desired_height>" << std::endl;
+        std::cerr << "Incorrect number of arguments!" << std::endl;
+        std::cerr << "Arguments are <source_image_path> <desired_width> <desired_height>" << std::endl;
 
         return -1;
     }
@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     cv::Mat img = cv::imread(argv[1]);
 
     if (img.empty()) {
-        std::cout << "Image empty or path not pointing to jpg image" << std::endl;
+        std::cerr << "Image empty or path not pointing to jpg image" << std::endl;
         return -1;
     }
 
