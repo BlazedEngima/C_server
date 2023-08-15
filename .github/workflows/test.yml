@@ -10,31 +10,24 @@ jobs:
   test:
     name: Run test suite
     runs-on: ubuntu-latest
+    container:
+      image: blazedenigma/cpp_server:1.0
+      ports:
+        - 8080
+      volumes:
+        -.:/cpp_server
     
     steps:
     - name: Checkout
       uses: actions/checkout@v3
 
-    - name: Setup docker buildx
-      uses: docker/setup-buildx-action@v2
-
-    - name: Build docker image
-      uses: docker/build-push-action@v4
-      with:
-        context: .
-        file: ./.devcontainer/Dockerfile
-        push: false
-        tags: cpp_server:latest
-
     - name: Build cmake project
       run: |
-        docker run --name cpp_server -d cpp_server:latest tail -f /dev/null &&
-        docker exec cpp_server git submodule init &&
-        docker exec cpp_server sh ./configure.sh &&
-        docker exec cpp_server sh ./build.sh
+        cd /cpp_server
+        git submodule init
+        sh ./configure.sh
+        sh ./build.sh
 
     - name: Run cpp_server
       run: |
-        docker exec cpp_server sh ./run_server.sh &
-        docker exec cpp_server sleep 5 &&
-        docker exec cpp_server sh ./test_run.sh
+        sh ./run_server.sh & sleep 5 && sh ./test_run.sh
