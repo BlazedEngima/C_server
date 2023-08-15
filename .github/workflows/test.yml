@@ -26,6 +26,7 @@ jobs:
         git config --global --add safe.directory /workspace
         cd /workspace
         git submodule init
+        git submodule update
         sh ./configure.sh
         sh ./build.sh
 
