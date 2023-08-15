@@ -43,6 +43,10 @@ content-type: application/json
 
 ## Building
 There is Dockerfile given under `.devcontainer` which can be used to directly build a docker container that can run the project.
+For example:
+```
+docker build . --file ./.devcontainer/Dockerfile --tag cpp_server:latest
+```
 
 After creating the docker image, you can either `git clone` the repo inside the docker container or mount the working directory into
 the docker container, here is an example:
