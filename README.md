@@ -58,7 +58,6 @@ git clone https://github.com/BlazedEngima/cpp_server.git
 git submodule init
 sh configure.sh
 sh build.sh
-
 ```
 
 The `.sh` files are simply the standard `cmake` configure and build commands.
