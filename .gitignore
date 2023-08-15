@@ -2,6 +2,7 @@
 *.d
 build
 .vscode
+resources/result.jpg
 
 # Compiled Object files
 *.slo
