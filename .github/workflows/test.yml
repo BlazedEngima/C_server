@@ -27,11 +27,13 @@ jobs:
         tags: cpp_server:latest
 
     - name: Build cmake project
-      uses: addnab/docker-run-action@v3
-      with:
-        image: cpp_server:latest
-        run: |
-          mkdir build
-          cd build
-          cmake ..
-          make -j $(nproc)
+      run: |
+        docker run -it cpp_server:latest &&
+        sh ./configure.sh &&
+        sh ./build.sh
+
+    - name: Run cpp_server
+      run: |
+        sh ./run_server.sh &
+        sleep 5 &&
+        sh ./test_run.sh
