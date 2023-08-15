@@ -28,7 +28,7 @@ jobs:
 
     - name: Build cmake project
       run: |
-        docker run -it cpp_server:latest &&
+        docker run -t cpp_server:latest &&
         git submodule init &&
         sh ./configure.sh &&
         sh ./build.sh
